@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// Ganti BASE_URL ke backend production Railway
+// GANTI BASE_URL DENGAN URL BACKEND DI RAILWAY
 const BASE_URL = "https://deploy-production-d54a.up.railway.app/api";
 
 function AdminLogin() {
@@ -19,7 +19,7 @@ function AdminLogin() {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/admin/login`, form); // ✅ Ubah endpoint ke /admin/login
+      const response = await axios.post(`${BASE_URL}/admin/login`, form);
       const token = response.data.token;
 
       localStorage.setItem("token", token);
