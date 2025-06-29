@@ -14,6 +14,7 @@ import Article from './components/Article.jsx';
 import ArticleDetail from './components/ArticleDetail.jsx';
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminDashboard from './components/admin/AdminDashboard';
+import ProtectedRoute from './components/admin/ProtectedRoute';
 
 function Home() {
   return (
@@ -33,9 +34,8 @@ function Home() {
 function App() {
   const location = useLocation();
 
-  // Daftar halaman yang TIDAK menampilkan Navbar
+  // Sembunyikan navbar di halaman admin
   const hideNavbarRoutes = ["/admin/login", "/admin/dashboard"];
-
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -43,19 +43,22 @@ function App() {
       {shouldShowNavbar && <Navbar />}
 
       <Routes>
+        {/* Halaman Publik */}
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/article" element={<Article />} />
+        <Route path="/article/:id" element={<ArticleDetail />} />
+
+        {/* Halaman Admin */}
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route
-          path="/article"
+          path="/admin/dashboard"
           element={
-            <div className="flex">
-              <Article />
-            </div>
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
           }
         />
-        <Route path="/article/:id" element={<ArticleDetail />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </div>
   );
