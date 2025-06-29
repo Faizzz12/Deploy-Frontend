@@ -2,8 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// GANTI BASE_URL DENGAN URL BACKEND DI RAILWAY
-const BASE_URL = "https://deploy-production-d54a.up.railway.app/api";
+// ✅ Ganti dengan URL backend online kamu
+const BASE_URL = "https://deploy-production-d54a.up.railway.app/api/auth";
 
 function AdminLogin() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -19,7 +19,7 @@ function AdminLogin() {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/admin/login`, form);
+      const response = await axios.post(`${BASE_URL}/login`, form);
       const token = response.data.token;
 
       localStorage.setItem("token", token);
