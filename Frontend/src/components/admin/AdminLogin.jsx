@@ -2,7 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = "http://localhost:5000/api";
+// Ganti BASE_URL ke backend production Railway
+const BASE_URL = "https://deploy-production-d54a.up.railway.app/api";
 
 function AdminLogin() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -18,7 +19,7 @@ function AdminLogin() {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/login`, form);
+      const response = await axios.post(`${BASE_URL}/admin/login`, form); // ✅ Ubah endpoint ke /admin/login
       const token = response.data.token;
 
       localStorage.setItem("token", token);
